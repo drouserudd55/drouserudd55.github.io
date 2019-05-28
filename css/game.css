@@ -1,0 +1,72 @@
+/* CSS Document */
+
+@font-face{
+	font-family: Alien;
+	src: url(predfont.ttf);
+}
+
+html, body {
+	width: 700px;
+	margin: 0 auto;
+	font-family: Alien;
+	font-size: 20px;
+	color: #333;
+	background-color: black;
+	background-image: url("Predator.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right bottom;
+	background-size: contain;}
+	
+h1 {
+	margin: 2px;
+	color: white;}
+p {
+	color: white;	
+}
+	
+button {
+	font-size: 12px;
+	font-weight: bold;
+	padding: 8px; }
+	
+div#content {
+	padding: 20px;
+	width: 800px;
+	background-color: black;
+position: relative;	}
+	
+div#controls {
+	text-align: right; }
+	
+div#controls span {
+	font-weight: bold;
+	color: #990000; }
+	
+div#controls button {
+	margin-left: 20px; }
+	
+div#timer {
+	display: none;
+	font-weight: bold; 
+	margin-left: 20px; 
+	color: #990000; }
+	
+div#gamespace {
+	height: 557px;
+	width: 800px;
+	border: 2px solid #CCC; 
+	position: relative;
+	background-image: url("Alien-Eggs.jpg");
+    background-repeat: no-repeat;
+    background-attachment: relative;
+    background-position: center;
+	background-size: 100% 100%;
+	cursor: url("Predator_Laser.cur"), auto;}
+	
+div#gamespace img { 
+	position: absolute;
+}
+	
+
+	
