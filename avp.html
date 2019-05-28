@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Blast-A-Xenomorph</title>
+    <script src="js/jquery-3.3.1.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/game.css" rel="stylesheet" />
+	<link rel="icon" type="image/jpeg" href="img/predicon.jpeg" />
+	
+
+	  <script>
+		  $("#gamespace").css('cursor','url(img/pred.png)', 'auto');
+		  //Keeps track of score
+		  var score = 0;
+		 
+		 //keeps track of time
+		  var time = 30;
+		  
+          $(document).ready( function() {
+			 
+			 //Starts game
+              $("#start_button").click(function(){
+                  start();
+              });
+			  
+			  //Stops user from clicking start multiple times and allowing game to run faster than it should
+			  $('#start_button').on('click',function() {
+				  $(this).prop("disabled",true);
+			  });
+			  
+			  //increments score
+			  $("#gamespace").on("click", "img", function(){
+				if (time > -1) {
+					incScore();
+				$(this).hide('explode', { pieces: 12 }, 500);
+				}
+			  });
+			  
+			  
+          });
+		 
+		 // keep count for img ids
+		 var count = 0;
+		 
+		 //adds mole to gamespace
+		  function addMole() {
+			  if (time > -1) {
+				count++;
+				var mole = document.createElement("img");
+				mole.setAttribute("src", "img/xeno.png");
+				mole.setAttribute("id", "img" + count)
+				posX = randPosX();
+				posY = randPosY();
+				mole.style.top = posX + "px";
+				mole.style.left = posY + "px";
+				$("#gamespace").append(mole);
+				again = setTimeout("addMole()", randInt());
+				setTimeout(function(){
+				$(mole).fadeOut(300);
+				}, randIntDiss());
+				again = clearTimeout();
+				if (time == -1){
+					setTimeout(function(){
+					$(mole).fadeOut(300);
+					});
+				}
+			  }
+		  }
+		 
+		 //remove moles at random int
+
+	
+		 
+		 //generates random int for random moles
+          function randInt(){
+			  return Math.floor(Math.random() * 2001);
+		  }
+		  function randIntDiss(){
+			  return Math.floor(Math.random() * 3001);
+		  }
+		 
+		 //gernerates random int for moles x pos
+          function randPosX() {
+              return Math.floor(Math.random() * 301);
+          }
+		 
+		 //generates random int for moles y pos
+          function randPosY() {
+              return Math.floor(Math.random() * 601);
+          }
+		 
+		 //increments score for when you click mole
+          function incScore(){
+              if (time > -1) {
+			  score++;
+			  $("#score").html(score + " pts");
+			  }
+          }
+		 
+		 //decreases time by one each second
+		  function decTime(){
+			  if (time > -1) {
+				$("#timer").css("display", "block");
+				$("#timer").html(time + " seconds left");
+				again = setTimeout("decTime()", 1000);
+				
+				time--;
+				if (time == -1) {
+					if(confirm('You killed ' + score + ' Xenomorphs! If you would like to play again, press Okay')){
+						window.location.reload();  
+					}
+				}
+			  }
+          }
+		 //function to start game
+		  function start() {
+			addMole();
+			decTime();
+		  }
+		  
+
+
+	  </script>
+
+
+  </head>
+  <body>
+  <nav class="navbar navbar-inverse navbar-static-top">
+	  <div class="container">
+		  <div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				  <span class="sr-only">Toggle navigation</span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="index.html">Home of Daniel Rouse-Rudd</a>
+		  </div>
+		  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav navbar-right">
+				  <li><a href="about.html">About</a></li>
+				  <!--<li class="dropdown">
+					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Games<span class="caret"></span></a>
+					  <ul class="dropdown-menu">
+						  <li><a href="#">Random</a></li>
+						  <li><a href="#">Horror</a></li>
+						  <li><a href="#">Action</a></li>
+						  <li><a href="#">Adventure</a></li>
+						  <li><a href="#">WRPG</a></li>
+						  <li><a href="#">JRPG</a></li>
+						  <li><a href="#">Multiplayer</a></li>
+						  <li><a href="#">Fighting</a></li>
+					  </ul>
+				  </li>-->
+				  <li><a href="#">Contact</a></li>
+				  <li class="dropdown">
+					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stuff I've done<span class="caret"></span></a>
+					  <ul class="dropdown-menu">
+						  <li><a href="avp.html">AvP Game</a></li>
+						  <li><a href=#>Video Game Recommendation (coming soon)</a></li>
+					  </ul>
+				  </li>
+		  </div>
+	  </div>
+  </nav>
+	<div id="content">
+
+		<h1>Blast-A-Xenomorph</h1>
+		
+		<p>As a New Blood you must prove your worth to your clan. Blast all the xenomorphs on the screen as they pop up.
+		After clicking "start", you will have 30 seconds to click
+		as many Xenomorphs as you can. The Xenomorphs appear randomly so be ready! </p>
+		
+		<div id="controls">
+			<span id="score">0 pts</span>
+			<button type="button" id="start_button" onclick="image()">Start!</button>
+		</div>
+		
+		<div id="timer">30 seconds left</div>
+		
+		<div id="gamespace">
+			<h2></h2>
+			
+		</div>
+		
+	</div>
+		
+		
+
+  </body>
+</html>
